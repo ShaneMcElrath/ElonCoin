@@ -42,8 +42,11 @@ Post.init(
       primaryKey: true,
       autoIncrement: true
     },
+    tweet_id: {
+      type: DataTypes.STRING
+    },
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     post_url: {
