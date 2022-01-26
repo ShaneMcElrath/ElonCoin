@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment, Vote } = require('../models');
+const axios = require('axios');
+require('dotenv').config();
 
 // get all posts for homepage
 router.get('/', (req, res) => {
@@ -96,6 +98,35 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+
+//localhost:3001/twitter
+router.get("/twitter", (req, res) => {
+
+  let options = {
+    url: 'https://api.twitter.com/2/users/44196397/tweets',
+    method: 'GET',
+    params: {
+      max_results: '5'
+    },
+    headers: {
+      Authorization: `Bearer ${process.env.DB_Twitter}`,
+      cookie: 'guest_id_marketing=v1%253A164314130670391939; guest_id_ads=v1%253A164314130670391939; personalization_id=%22v1_miJD3PLKTUfq5vx2k8n8eQ%3D%3D%22; guest_id=v1%253A164314130670391939; '
+    }
+  };
+
+  axios(options)
+    .then(response => {
+      const { data } = response.data;
+
+      console.log(data);
+
+      res.render('twitter', {
+        tweets: data
+      });
+    })
+    .catch(err => console.error('error:' + err));
 });
 
 module.exports = router;
