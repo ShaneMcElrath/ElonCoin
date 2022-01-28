@@ -8,10 +8,8 @@ require('dotenv').config();
 
 router.get('/', (req, res) => {
 
-    res.send('hello');
-
     let options = {
-        url: `https://api.polygon.io/v2/aggs/ticker/TSLA/range/1/day/2020-06-01/2020-06-17`,
+        url: `https://api.polygon.io/v2/aggs/ticker/TSLA/range/30/minute/2021-07-22/2021-07-22?adjusted=true&sort=asc&limit=1000`,
         method: 'GET',
         params: {
             apiKey: process.env.DB_Stocks
@@ -24,22 +22,23 @@ router.get('/', (req, res) => {
             const data = response.data;
             //console.log(data);
             //const stockInfo = JSON.stringify(data);
-            //const stockInfo = JSON.stringify(data);
+            const stockInfo = JSON.stringify(data.results);
             //console.log(stockInfo);
-            console.log(data.results[0]);
+            //console.log(data.results);
 
-            Stock.create({
-                data: (data.results[0],data.results[1])
-            })
+            return Stock.create({
+                data: (stockInfo),
+                post_id: req.query.post_id
+            });
 
             
         })
         .then(dbPostData => {
-            console.log(dbPostData)
-            return res.json(dbPostData)
+            console.log(dbPostData);
+            return res.json(dbPostData);
         })
         .catch(err => {
-            console.log(err);
+            //console.log(err);
             res.status(500).json(err);
         });
 });
