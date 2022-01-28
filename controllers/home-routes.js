@@ -102,7 +102,7 @@ router.get('/login', (req, res) => {
 
 
 //localhost:3001/twitter
-router.get("/twitter", (req, res) => {
+/* router.get("/twitter", (req, res) => {
 
   let options = {
     url: 'https://api.twitter.com/2/users/44196397/tweets',
@@ -127,6 +127,6 @@ router.get("/twitter", (req, res) => {
       });
     })
     .catch(err => console.error('error:' + err));
-});
+}); */
 
 module.exports = router;
