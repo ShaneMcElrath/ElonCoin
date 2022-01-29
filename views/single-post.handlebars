@@ -29,7 +29,12 @@
 <script>
 
 
-  console.log({{{post}}});
+  var date = '{{format_date post.created_at}}';
+
+  //var dateAsString = dateAsDate.toString();
+
+
+  console.log(date);
 
 
   async function createGraph() {
