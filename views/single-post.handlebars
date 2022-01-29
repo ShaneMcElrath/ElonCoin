@@ -29,95 +29,83 @@
 <script>
 
 
-
-  var stockData = {{{post.stock.data}}}
-
-  stockData = stockData.reverse();
-  
-  console.log('hi');
-  console.log(stockData);
-  console.log('hi');
-
- 
+  console.log({{{post}}});
 
 
-  let highData = stockData.map(({high}) => high);
-  let lowData = stockData.map(({low}) => low);
-  let timeData = stockData.map(({datetime}) => datetime);
-  let time = [];
+  async function createGraph() {
+    /*const project = await Project.findOne({ 
+      where: { created_at: } 
 
-  console.log(timeData);
-  
-  
+
+    });*/
+    
+
+    var stockData = {{{post.stock.data}}};
+
+    stockData = stockData.reverse();
+    
+    console.log('hi');
+    console.log(stockData);
+    console.log('hi');
 
   
+
+
+    let highData = stockData.map(({high}) => high);
+    let lowData = stockData.map(({low}) => low);
+    let timeData = stockData.map(({datetime}) => datetime);
+    let time = [];
+    
   
 
- 
-  /*highData = highData.reverse();
-  lowData = lowData.reverse();*/
-  
-  //var midData = stockData.map(({volume}) => volume);
- 
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: timeData,
+          datasets: [{
+              color: '#7cfc00',
+              label: 'TESLA HIGH STOCK',
+              data: highData,
+              backgroundColor: [
+                  'rgba(75, 192, 192, 0.2)',
+              ],
+              borderColor: [
+                  'rgb(75, 192, 192)'
+              ],
+              borderWidth: 5,
+              tension: 0.1,
+              fill: true,
+
+            },
+            
+            {
+              label: 'TESLA LOW STOCK',
+              data: lowData,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderColor: [
+                  '#FF6384'
+              ],
+              borderWidth: 5,
+              tension: 0.1,
+              fill: true,
+            } 
+          ]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: false
+              }
+          }
+      }
+    });
+  };
 
 
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: timeData,
-        datasets: [{
-            color: '#7cfc00',
-            label: 'TESLA HIGH STOCK',
-            data: highData,
-            backgroundColor: [
-                'rgba(75, 192, 192, 0.2)',
-            ],
-            borderColor: [
-                'rgb(75, 192, 192)'
-            ],
-            borderWidth: 5,
-            tension: 0.1,
-            fill: true,
+  createGraph();
 
-        },
-        
-        {
-          label: 'TESLA LOW STOCK',
-          data: lowData,
-          backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-          ],
-          borderColor: [
-              '#FF6384'
-          ],
-          borderWidth: 5,
-          tension: 0.1,
-          fill: true,
-        },
-
-        /*{
-          label: 'TESLA VOLUME WEIGHTED AVERAGE STOCK',
-          data: midData,
-          backgroundColor: [
-              'rgba(54, 162, 235, 0.2)',
-          ],
-          borderColor: [
-              '#36A2EB'
-          ],
-          borderWidth: 5,
-          tension: 0.1,
-          fill: true,
-        }*/
-        
-        ]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: false
-            }
-        }
-    }
-});
 </script>

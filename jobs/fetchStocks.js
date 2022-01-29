@@ -27,4 +27,4 @@ async function getStocks() {
 
 
 
-setInterval(getStocks, 15000);
+setInterval(getStocks, 500000);
