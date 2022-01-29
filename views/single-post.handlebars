@@ -2,9 +2,6 @@
 
 {{post.created_at}}
 
-{{log post}}
-{{post.stock.data}}
-
 <div class="">
   <canvas id="myChart" width="400" height="200"></canvas>
 </div>
@@ -30,6 +27,15 @@
 {{/if}}
 
 <script>
+
+  
+
+  var stockData = {{{post.stock.data}}}
+
+  var highData = stockData.map(({h}) => h);
+  var lowData = stockData.map(({l}) => l);
+  var midData = stockData.map(({vw}) => vw);
+  //console.log(highData);
 
 
 const ctx = document.getElementById('myChart').getContext('2d');
@@ -71,14 +77,10 @@ const myChart = new Chart(ctx, {
           ],
         datasets: [{
             color: '#7cfc00',
-            label: '# of Votes',
-            data: [120, 190, 300, 500, 200, 300, 649.6601],
+            label: 'TESLA HIGH STOCK',
+            data: highData,
             backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
             ],
             borderColor: [
                 'rgb(75, 192, 192)'
@@ -87,12 +89,42 @@ const myChart = new Chart(ctx, {
             tension: 0.1,
             fill: true,
 
-        }]
+        },
+        
+        {
+          label: 'TESLA LOW STOCK',
+          data: lowData,
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+          ],
+          borderColor: [
+              '#FF6384'
+          ],
+          borderWidth: 5,
+          tension: 0.1,
+          fill: true,
+        },
+
+        {
+          label: 'TESLA VOLUME WEIGHTED AVERAGE STOCK',
+          data: midData,
+          backgroundColor: [
+              'rgba(54, 162, 235, 0.2)',
+          ],
+          borderColor: [
+              '#36A2EB'
+          ],
+          borderWidth: 5,
+          tension: 0.1,
+          fill: true,
+        }
+        
+        ]
     },
     options: {
         scales: {
             y: {
-                beginAtZero: true
+                beginAtZero: false
             }
         }
     }
