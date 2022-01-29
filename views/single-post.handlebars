@@ -28,53 +28,44 @@
 
 <script>
 
-  
+
 
   var stockData = {{{post.stock.data}}}
 
-  var highData = stockData.map(({h}) => h);
-  var lowData = stockData.map(({l}) => l);
-  var midData = stockData.map(({vw}) => vw);
-  //console.log(highData);
+  stockData = stockData.reverse();
+  
+  console.log('hi');
+  console.log(stockData);
+  console.log('hi');
+
+ 
+
+
+  let highData = stockData.map(({high}) => high);
+  let lowData = stockData.map(({low}) => low);
+  let timeData = stockData.map(({datetime}) => datetime);
+  let time = [];
+
+  console.log(timeData);
+  
+  
+
+  
+  
+
+ 
+  /*highData = highData.reverse();
+  lowData = lowData.reverse();*/
+  
+  //var midData = stockData.map(({volume}) => volume);
+ 
 
 
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [
-          '9AM',
-          '',
-          '10AM', 
-          '', 
-          '11AM', 
-          '', 
-          '12PM', 
-          '', 
-          '1PM', 
-          '', 
-          '2PM', 
-          '', 
-          '3PM', 
-          '',
-          '4PM',
-          '',
-          '5PM',
-          '',
-          '6PM',
-          '',
-          '7PM',
-          '',
-          '8PM',
-          '',
-          '9PM',
-          '',
-          '10PM',
-          '',
-          '11PM',
-          '',
-          '12PM',
-          ],
+        labels: timeData,
         datasets: [{
             color: '#7cfc00',
             label: 'TESLA HIGH STOCK',
@@ -105,7 +96,7 @@ const myChart = new Chart(ctx, {
           fill: true,
         },
 
-        {
+        /*{
           label: 'TESLA VOLUME WEIGHTED AVERAGE STOCK',
           data: midData,
           backgroundColor: [
@@ -117,7 +108,7 @@ const myChart = new Chart(ctx, {
           borderWidth: 5,
           tension: 0.1,
           fill: true,
-        }
+        }*/
         
         ]
     },
