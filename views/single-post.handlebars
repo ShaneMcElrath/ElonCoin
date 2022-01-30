@@ -37,7 +37,7 @@
         method: 'get',
         headers: { 'Content-Type': 'application/json' }
       });
-
+      //we could have done a .then()instead of await response.json()
       if (response.ok) {
         var stockData = await response.json();
         //console.log(stockData);
