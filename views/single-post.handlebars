@@ -1,7 +1,5 @@
 {{> post-info post}}
 
-{{post.created_at}}
-
 <div class="">
   <canvas id="myChart" width="400" height="200"></canvas>
 </div>
@@ -28,33 +26,29 @@
 
 <script>
 
-
   var date = '{{format_date post.created_at}}';
-
-  
-
 
   console.log(date);
 
 
   async function createGraph() {
-    /*const project = await Project.findOne({ 
-      where: { created_at: } 
-
-
-    });*/
     
+      const response = await fetch(`/api/stock/created?created_at=${date}`, {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' }
+      });
 
-    var stockData = {{{post.stock.data}}};
+      if (response.ok) {
+        var stockData = await response.json();
+        //console.log(stockData);
+        //console.log('response');
+      } else {
+        alert(response.statusText);
+      }
+
+    //var stockData = {{{post.stock.data}}};
 
     stockData = stockData.reverse();
-    
-    console.log('hi');
-    console.log(stockData);
-    console.log('hi');
-
-  
-
 
     let highData = stockData.map(({high}) => high);
     let lowData = stockData.map(({low}) => low);

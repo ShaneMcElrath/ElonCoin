@@ -24,13 +24,13 @@ router.get('/', (req, res) => {
 
             
             const data = response.data;
-            console.log(data.values);
+            //console.log(data.values);
             //console.log(data);
             //const stockInfo = JSON.stringify(data);
            /*  let [stockj] = data.values;
             console.log(stockj); */
             let stockInfo = JSON.stringify(data.values);
-            console.log(stockInfo);
+            //console.log(stockInfo);
             //console.log(data.results);
 
             return Stock.create({
@@ -48,6 +48,23 @@ router.get('/', (req, res) => {
             //console.log(err);
             res.status(500).json(err);
         });
+});
+
+router.get('/created', (req, res) => {
+    Stock.findOne({
+        where: {date : req.query.created_at},
+        attributes: [
+            'data'
+        ]
+    })
+        .then((createdAtDB) => {
+            console.log(createdAtDB.dataValues.data);
+            return res.send(createdAtDB.dataValues.data);
+        })
+        .catch((err) => {
+            res.status(500).json(err);
+        });
+    
 });
 
 module.exports = router;
