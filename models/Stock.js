@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
+const moment = require('moment');
 
 // create our Stock model
 class Stock extends Model {
@@ -22,6 +23,12 @@ Stock.init(
             allowNull: false
         },
 
+        date: {
+            type: DataTypes.STRING,
+            defaultValue: moment().format('l'),
+            allowNull: false
+        },
+
         post_id: {
             type: DataTypes.INTEGER,
             references: {
@@ -33,7 +40,6 @@ Stock.init(
     },
     {
         sequelize,
-        timestamps: false,
         freezeTableName: true,
         underscored: true,
         modelName: 'stock'

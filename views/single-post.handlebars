@@ -25,69 +25,86 @@
 {{/if}}
 
 <script>
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [
-          '9AM',
-          '',
-          '10AM', 
-          '', 
-          '11AM', 
-          '', 
-          '12PM', 
-          '', 
-          '1PM', 
-          '', 
-          '2PM', 
-          '', 
-          '3PM', 
-          '',
-          '4PM',
-          '',
-          '5PM',
-          '',
-          '6PM',
-          '',
-          '7PM',
-          '',
-          '8PM',
-          '',
-          '9PM',
-          '',
-          '10PM',
-          '',
-          '11PM',
-          '',
-          '12PM',
-          ],
-        datasets: [{
-            color: '#7cfc00',
-            label: '# of Votes',
-            data: [120, 190, 300, 500, 200, 300, 649.6601],
-            backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgb(75, 192, 192)'
-            ],
-            borderWidth: 5,
-            tension: 0.1,
-            fill: true,
 
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
+  var date = '{{format_date post.created_at}}';
+
+  console.log(date);
+
+
+  async function createGraph() {
+    
+      const response = await fetch(`/api/stock/created?created_at=${date}`, {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      //we could have done a .then()instead of await response.json()
+      if (response.ok) {
+        var stockData = await response.json();
+        //console.log(stockData);
+        //console.log('response');
+      } else {
+        alert(response.statusText);
+      }
+
+    //var stockData = {{{post.stock.data}}};
+
+    stockData = stockData.reverse();
+
+    let highData = stockData.map(({high}) => high);
+    let lowData = stockData.map(({low}) => low);
+    let timeData = stockData.map(({datetime}) => datetime);
+    let time = [];
+    
+  
+
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: timeData,
+          datasets: [{
+              color: '#7cfc00',
+              label: 'TESLA HIGH STOCK',
+              data: highData,
+              backgroundColor: [
+                  'rgba(75, 192, 192, 0.2)',
+              ],
+              borderColor: [
+                  'rgb(75, 192, 192)'
+              ],
+              borderWidth: 5,
+              tension: 0.1,
+              fill: true,
+
+            },
+            
+            {
+              label: 'TESLA LOW STOCK',
+              data: lowData,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderColor: [
+                  '#FF6384'
+              ],
+              borderWidth: 5,
+              tension: 0.1,
+              fill: true,
+            } 
+          ]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: false
+              }
+          }
+      }
+    });
+  };
+
+
+  createGraph();
+
 </script>

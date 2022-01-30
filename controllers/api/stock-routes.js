@@ -8,21 +8,28 @@ require('dotenv').config();
 
 router.get('/', (req, res) => {
 
-    let options = {
-        url: `https://api.polygon.io/v2/aggs/ticker/TSLA/range/30/minute/2021-07-22/2021-07-22?adjusted=true&sort=asc&limit=1000`,
+    var options = {
         method: 'GET',
-        params: {
-            apiKey: process.env.DB_Stocks
+        url: 'https://twelve-data1.p.rapidapi.com/time_series',
+        params: {symbol: 'TSLA', interval: '30min', outputsize: '13', format: 'json'},
+        headers: {
+          'x-rapidapi-host': 'twelve-data1.p.rapidapi.com',
+          'x-rapidapi-key': process.env.DB_Stocks
         }
-    };
+      };
 
     //fetches stock from polygon.io using options
     axios(options)
         .then(response => {
+
+            
             const data = response.data;
+            //console.log(data.values);
             //console.log(data);
             //const stockInfo = JSON.stringify(data);
-            const stockInfo = JSON.stringify(data.results);
+           /*  let [stockj] = data.values;
+            console.log(stockj); */
+            let stockInfo = JSON.stringify(data.values);
             //console.log(stockInfo);
             //console.log(data.results);
 
@@ -34,13 +41,30 @@ router.get('/', (req, res) => {
             
         })
         .then(dbPostData => {
-            console.log(dbPostData);
+            /* console.log(dbPostData); */
             return res.json(dbPostData);
         })
         .catch(err => {
             //console.log(err);
             res.status(500).json(err);
         });
+});
+
+router.get('/created', (req, res) => {
+    Stock.findOne({
+        where: {date : req.query.created_at},
+        attributes: [
+            'data'
+        ]
+    })
+        .then((createdAtDB) => {
+            console.log(createdAtDB.dataValues.data);
+            return res.send(createdAtDB.dataValues.data);
+        })
+        .catch((err) => {
+            res.status(500).json(err);
+        });
+    
 });
 
 module.exports = router;
