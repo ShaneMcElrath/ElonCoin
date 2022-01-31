@@ -7,18 +7,25 @@ body, html {
   padding: 0;
   margin: 0;
   font-family: sans-serif;
-  color: #333;
+  color: #939393;
+  background-color: #5a6267;
+}
+
+#myChart {
+  width: 400;
+  height: 400;
 }
 
 a {
   text-decoration: none;
-  color: #225ca3;
+  word-wrap: break-word;
+  color: #000000;
   font-weight: bold;
   transition: color .1s;
 }
 
 a:hover {
-  color: #3486eb;
+  color: #df292e;
 }
 
 button {
@@ -37,13 +44,13 @@ button:hover {
 }
 
 .post-list {
-  margin: 0;
-  padding: 0;
+  margin: auto;
+  padding: auto;
 }
 
 textarea, input {
   padding: .5%;
-  border-radius: 5px;
+  border-radius: 18px;
   border: 1px solid #ccc;
 }
 
@@ -68,10 +75,11 @@ form label {
 .wrapper {
   width: 100%;
   min-height: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  background-color: #ccc;
 }
 
 header {
@@ -89,6 +97,7 @@ header h1 {
 main {
   flex: 1;
   padding: 2% 4%;
+  background-color: rgb(233, 233, 233);
 }
 
 .btn-no-style {

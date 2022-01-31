@@ -30,4 +30,4 @@ async function getTwitter() {
 
 
 
-setInterval(getTwitter, 500000);
+setInterval(getTwitter, 5000000);
