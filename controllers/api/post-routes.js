@@ -3,6 +3,7 @@ const sequelize = require('../../config/connection');
 const { Post, User, Comment, Vote } = require('../../models');
 const withAuth = require('../../utils/auth');
 const axios = require('axios');
+const getStocks = require('../../jobs/fetchStocks');
 require('dotenv').config();
 
 // get all users
@@ -70,7 +71,12 @@ router.get('/tweet', (req, res) => {
         }
       });
     })
-    .then(dbPostData => res.json(dbPostData))
+    .then(([dbPostData, created]) => {
+      console.log('hi');
+      getStocks();
+      console.log('hi');
+      return res.json(dbPostData);
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);

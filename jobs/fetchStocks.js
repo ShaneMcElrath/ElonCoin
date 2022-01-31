@@ -5,7 +5,7 @@ const axios = require('axios');
 
 async function getStocks() {
   
-  console.log('hi');
+  
 
   let options = {
     url: `http://127.0.0.1:${process.env.PORT}/api/stock`,
@@ -27,4 +27,6 @@ async function getStocks() {
 
 
 
-setInterval(getStocks, 5000000);
+setInterval(getStocks, 1620000);
+
+module.exports = getStocks;

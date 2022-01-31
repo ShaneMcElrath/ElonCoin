@@ -27,16 +27,7 @@ Stock.init(
             type: DataTypes.STRING,
             defaultValue: moment().format('l'),
             allowNull: false
-        },
-
-        post_id: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'post',
-                key: 'id'
-            }
-        },
-
+        }
     },
     {
         sequelize,
