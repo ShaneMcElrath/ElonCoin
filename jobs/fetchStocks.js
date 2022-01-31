@@ -27,6 +27,6 @@ async function getStocks() {
 
 
 
-setInterval(getStocks, 1620000);
+
 
 module.exports = getStocks;
