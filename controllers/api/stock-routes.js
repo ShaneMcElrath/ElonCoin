@@ -4,6 +4,7 @@ const { Post, User, Comment, Vote, Stock } = require('../../models');
 const withAuth = require('../../utils/auth');
 const axios = require('axios');
 const { response } = require('express');
+const moment = require('moment');
 require('dotenv').config();
 
 router.get('/', (req, res) => {
@@ -20,28 +21,43 @@ router.get('/', (req, res) => {
 
     //fetches stock from polygon.io using options
     axios(options)
-        .then(response => {
+        .then(async (response) => {
 
             
-            const data = response.data;
-            //console.log(data.values);
-            //console.log(data);
-            //const stockInfo = JSON.stringify(data);
-           /*  let [stockj] = data.values;
-            console.log(stockj); */
-            let stockInfo = JSON.stringify(data.values);
-            //console.log(stockInfo);
-            //console.log(data.results);
+            var data = response.data;
 
-            return Stock.create({
-                data: (stockInfo),
-                post_id: req.query.post_id
+            var stockInfo = JSON.stringify(data.values);
+            var date = moment().format('l');
+
+            var [data, created] = await Stock.findOrCreate({
+                where: { date: date},
+                defaults: {
+                data: (stockInfo)
+                }
             });
 
-            
+            console.log(created);
+            if (created) {
+                console.log('hi');
+                return data;
+            }
+            else {
+                console.log(stockInfo);
+                return Stock.update(
+                    {
+                        data: stockInfo
+                    },
+                    {
+                        where: {
+                            date: date
+                        }
+                    }
+                );
+            }      
         })
-        .then(dbPostData => {
-            /* console.log(dbPostData); */
+        .then((dbPostData) => {
+            console.log('hi');
+            console.log(dbPostData); 
             return res.json(dbPostData);
         })
         .catch(err => {

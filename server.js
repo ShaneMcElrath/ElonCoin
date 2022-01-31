@@ -4,7 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 require('./jobs/fetchTweets.js');
-require('./jobs/fetchStocks.js')
+require('./jobs/fetchStocks.js');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
