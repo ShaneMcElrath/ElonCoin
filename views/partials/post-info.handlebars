@@ -1,0 +1,16 @@
+<article class="post">
+  <div class="title">
+    <h3>
+    <a href="/post/{{id}}">{{title}}</a>
+    </h3>
+  </div>
+  <div class="meta">
+    <i class="ri-chat-poll-line"></i>
+    {{vote_count}} {{format_plural "point" vote_count}} | <i class="ri-calendar-event-line"></i> Made on {{format_date created_at}}
+    |
+    <i class="ri-chat-1-line"></i>
+    <span >{{comments.length}} {{format_plural "comment" comments.length}}</span>
+    |
+    <a href="{{post_url}}" target="_blank">Take me to the Original Tweet</a>
+  </div>
+</article>

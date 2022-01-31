@@ -1,0 +1,118 @@
+{{> post-info post}}
+
+<div class="">
+  <canvas id="myChart" ></canvas>
+</div>
+
+{{#if loggedIn}}
+<form class="comment-form">
+  <div>
+    <textarea name="comment-body"></textarea>
+  </div>
+
+  <div>
+    <button type="submit">add comment</button>
+    <button type="button" class="upvote-btn">upvote</button>
+  </div>
+</form>
+{{else}}
+<div class="border rounded d-flex justify-content-around py-2 ml-1">
+  <h5 class="ri-chat-1-line my-3 "> Log in or sign up to leave a comment</h5>
+  <a class="btn border-danger rounded-70rem bg-danger text-white" href="/login" role="button">Sign Up / Log in</a>
+</div>
+{{/if}}
+
+{{> comments post.comments}}
+
+
+
+
+{{#if loggedIn}}
+<script src="/javascript/comment.js"></script>
+<script src="/javascript/upvote.js"></script>
+{{/if}}
+
+<script>
+
+  var date = '{{format_date post.created_at}}';
+
+  console.log(date);
+
+
+  async function createGraph() {
+    
+      const response = await fetch(`/api/stock/created?created_at=${date}`, {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      //we could have done a .then()instead of await response.json()
+      if (response.ok) {
+        var stockData = await response.json();
+        //console.log(stockData);
+        //console.log('response');
+      } else {
+        alert(response.statusText);
+      }
+
+    //var stockData = {{{post.stock.data}}};
+
+    stockData = stockData.reverse();
+
+    let highData = stockData.map(({high}) => high);
+    let lowData = stockData.map(({low}) => low);
+    let timeData = stockData.map(({datetime}) => datetime);
+    let time = [];
+    
+  
+
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: timeData,
+          datasets: [{
+              color: '#7cfc00',
+              label: 'TESLA HIGH STOCK',
+              data: highData,
+              backgroundColor: [
+                  'rgba(75, 192, 192, 0.2)',
+              ],
+              borderColor: [
+                  'rgb(75, 192, 192)'
+              ],
+              borderWidth: 5,
+              tension: 0.1,
+              fill: true,
+
+            },
+            
+            {
+              label: 'TESLA LOW STOCK',
+              data: lowData,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderColor: [
+                  '#FF6384'
+              ],
+              borderWidth: 5,
+              tension: 0.1,
+              fill: true,
+            } 
+          ]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: false
+              }
+          }
+      }
+    });
+  };
+
+
+  createGraph();
+
+</script>

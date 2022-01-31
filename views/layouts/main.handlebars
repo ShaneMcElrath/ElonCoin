@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElonCoin</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  {{!-- new navbar --}}
+  <nav class="navbar navbar-expand bg-dark">
+    <a class="navbar-brand text-white" href="/">ElonCoin</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        {{!-- <li class="nav-item active">
+          <a class="nav-link text-white" href="/">Home <span class="sr-only">(current)</span></a>
+        </li> --}}
+      </ul>
+      <form class="form-inline my-2 my-lg-0 mr-2">
+        {{#if loggedIn}}
+          <button id="logout" class="btn border-danger rounded-pill bg-danger text-white mr-3">Logout</button>
+          {{else}}
+          <a class="btn border-danger rounded-pill bg-danger text-white" href="/login" role="button">Sign Up / Log in</a>
+          {{/if}}
+      </form>
+    </div>
+  </nav>
+  
+  <div class="wrapper">
+    <main>
+      <div class="container bg-white pt-4 pb-1 rounded">
+        {{{ body }}}
+      </div>
+    </main>
+    <footer>
+      Thanks for visiting!
+    </footer>
+  </div>
+  
+  {{#if loggedIn}}
+  <script src="/javascript/logout.js"></script>
+  {{/if}}
+</body>
+
+</html>
