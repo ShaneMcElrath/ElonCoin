@@ -1,7 +1,7 @@
 {{> post-info post}}
 
-<div class="">
-  <canvas id="myChart" ></canvas>
+<div class="myChart" style="display: block;">
+  <canvas id="myChart" width="696" height="600" style="display: block; height: 97px; width: 232px;"></canvas>
 </div>
 
 {{#if loggedIn}}
@@ -18,7 +18,7 @@
 {{else}}
 <div class="border rounded d-flex justify-content-around py-2 ml-1">
   <h5 class="ri-chat-1-line my-3 "> Log in or sign up to leave a comment</h5>
-  <a class="btn border-danger rounded-70rem bg-danger text-white" href="/login" role="button">Sign Up / Log in</a>
+  <a class=" signUp btn border-danger rounded-70rem bg-danger text-white" href="/login" role="button">Sign Up / Log in</a>
 </div>
 {{/if}}
 
@@ -103,6 +103,7 @@
           ]
       },
       options: {
+        maintainAspectRatio: false,
           scales: {
               y: {
                   beginAtZero: false
