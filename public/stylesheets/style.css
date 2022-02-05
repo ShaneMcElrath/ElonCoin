@@ -11,10 +11,10 @@ body, html {
   background-color: #5a6267;
 }
 
-#myChart {
-  width: 1000px;
-  height: 1000px;
-}
+
+ .myChart {
+  height: 60vh;
+  } 
 
 a {
   text-decoration: none;
@@ -47,7 +47,8 @@ button:hover {
 
 .signUp {
   margin-top: 10px;
-  height: 46px;
+  height: fit-content;
+  padding-bottom: 10px;
   padding-top: 10px;
 }
 

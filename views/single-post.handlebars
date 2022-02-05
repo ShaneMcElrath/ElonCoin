@@ -1,7 +1,7 @@
 {{> post-info post}}
 
-<div class="">
-  <canvas id="myChart" ></canvas>
+<div class="myChart" style="display: block;">
+  <canvas id="myChart" width="696" height="600" style="display: block; height: 97px; width: 232px;"></canvas>
 </div>
 
 {{#if loggedIn}}
@@ -103,6 +103,7 @@
           ]
       },
       options: {
+        maintainAspectRatio: false,
           scales: {
               y: {
                   beginAtZero: false
