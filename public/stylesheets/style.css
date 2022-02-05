@@ -11,10 +11,10 @@ body, html {
   background-color: #5a6267;
 }
 
-#myChart {
-  width: 400;
-  height: 400;
-}
+
+ .myChart {
+  height: 60vh;
+  } 
 
 a {
   text-decoration: none;
@@ -29,23 +29,37 @@ a:hover {
 }
 
 button {
-  background-color: #225ca3;
+  background-color: white;
   border: 0;
   padding: 1%;
-  color: white;
+  color: #dc3545;
   font-weight: bold;
   transition: background-color .1s;
   cursor: pointer;
   border-radius: 5px;
+  border: solid black 1px;
 }
 
 button:hover {
-  background-color: #3486eb;
+  background-color: #dc3545;
+  color: white;
+}
+
+.signUp {
+  margin-top: 10px;
+  height: fit-content;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.bodyContent {
+  background-color: rgb(233, 233, 233);
 }
 
 .post-list {
   margin: auto;
   padding: auto;
+  list-style-type: none;
 }
 
 textarea, input {
@@ -143,12 +157,15 @@ main {
 }
 
 .upvote-btn {
-  background-color: #197d0f;
+  background-color: #dc3545;
   transition: background-color .1s;
+  color: white;
+  
 }
 
 .upvote-btn:hover {
-  background-color: #1f9c13;
+  background-color: white;
+  color: #dc3545;
 }
 
 .comment-form {
@@ -158,10 +175,8 @@ main {
 .comment {
   padding: 1%;
   margin-bottom: 1%;
-}
-
-.comment:nth-child(odd) {
-  background-color: #fff5eb;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .comment .meta {
